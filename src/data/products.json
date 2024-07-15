@@ -1,0 +1,347 @@
+[
+  {
+    "id": 1,
+    "title": "Producto 1",
+    "description": "Descripción del Producto 1",
+    "price": 29.99,
+    "status": true,
+    "stock": 100,
+    "category": "Electrónicos",
+    "thumbnails": [
+      "/images/productos/producto1-img1.jpg",
+      "/images/productos/producto1-img2.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Producto 2",
+    "description": "Descripción del Producto 2",
+    "price": 49.99,
+    "status": true,
+    "stock": 50,
+    "category": "Hogar",
+    "thumbnails": ["/images/productos/producto2-img1.jpg"]
+  },
+  {
+    "id": 3,
+    "title": "Producto 3",
+    "description": "Descripción del Producto 3",
+    "price": 19.99,
+    "status": true,
+    "stock": 200,
+    "category": "Ropa",
+    "thumbnails": ["/images/productos/producto3-img1.jpg"]
+  },
+  {
+    "id": 4,
+    "title": "Producto 4",
+    "description": "Descripción del Producto 4",
+    "price": 39.99,
+    "status": true,
+    "stock": 80,
+    "category": "Electrodomésticos",
+    "thumbnails": [
+      "/images/productos/producto4-img1.jpg",
+      "/images/productos/producto4-img2.jpg"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Producto 5",
+    "description": "Descripción del Producto 5",
+    "price": 59.99,
+    "status": true,
+    "stock": 30,
+    "category": "Juguetes",
+    "thumbnails": ["/images/productos/producto5-img1.jpg"]
+  },
+  {
+    "id": 6,
+    "title": "Producto 6",
+    "description": "Descripción del Producto 6",
+    "price": 69.99,
+    "status": true,
+    "stock": 150,
+    "category": "Electrónicos",
+    "thumbnails": [
+      "/images/productos/producto6-img1.jpg",
+      "/images/productos/producto6-img2.jpg"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Producto 7",
+    "description": "Descripción del Producto 7",
+    "price": 89.99,
+    "status": true,
+    "stock": 50,
+    "category": "Hogar",
+    "thumbnails": ["/images/productos/producto7-img1.jpg"]
+  },
+  {
+    "id": 8,
+    "title": "Producto 8",
+    "description": "Descripción del Producto 8",
+    "price": 24.99,
+    "status": true,
+    "stock": 120,
+    "category": "Ropa",
+    "thumbnails": [
+      "/images/productos/producto8-img1.jpg",
+      "/images/productos/producto8-img2.jpg"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Producto 9",
+    "description": "Descripción del Producto 9",
+    "price": 34.99,
+    "status": true,
+    "stock": 70,
+    "category": "Electrodomésticos",
+    "thumbnails": ["/images/productos/producto9-img1.jpg"]
+  },
+  {
+    "id": 10,
+    "title": "Producto 10",
+    "description": "Descripción del Producto 10",
+    "price": 44.99,
+    "status": true,
+    "stock": 90,
+    "category": "Juguetes",
+    "thumbnails": [
+      "/images/productos/producto10-img1.jpg",
+      "/images/productos/producto10-img2.jpg"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Producto 11",
+    "description": "Descripción del Producto 11",
+    "price": 54.99,
+    "status": true,
+    "stock": 40,
+    "category": "Electrónicos",
+    "thumbnails": ["/images/productos/producto11-img1.jpg"]
+  },
+  {
+    "id": 12,
+    "title": "Producto 12",
+    "description": "Descripción del Producto 12",
+    "price": 64.99,
+    "status": true,
+    "stock": 60,
+    "category": "Hogar",
+    "thumbnails": [
+      "/images/productos/producto12-img1.jpg",
+      "/images/productos/producto12-img2.jpg"
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Producto 13",
+    "description": "Descripción del Producto 13",
+    "price": 74.99,
+    "status": true,
+    "stock": 80,
+    "category": "Ropa",
+    "thumbnails": ["/images/productos/producto13-img1.jpg"]
+  },
+  {
+    "id": 14,
+    "title": "Producto 14",
+    "description": "Descripción del Producto 14",
+    "price": 84.99,
+    "status": true,
+    "stock": 100,
+    "category": "Electrodomésticos",
+    "thumbnails": [
+      "/images/productos/producto14-img1.jpg",
+      "/images/productos/producto14-img2.jpg"
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Producto 15",
+    "description": "Descripción del Producto 15",
+    "price": 94.99,
+    "status": true,
+    "stock": 120,
+    "category": "Juguetes",
+    "thumbnails": ["/images/productos/producto15-img1.jpg"]
+  },
+  {
+    "id": 16,
+    "title": "Producto 16",
+    "description": "Descripción del Producto 16",
+    "price": 104.99,
+    "status": true,
+    "stock": 140,
+    "category": "Electrónicos",
+    "thumbnails": [
+      "/images/productos/producto16-img1.jpg",
+      "/images/productos/producto16-img2.jpg"
+    ]
+  },
+  {
+    "id": 17,
+    "title": "Producto 17",
+    "description": "Descripción del Producto 17",
+    "price": 114.99,
+    "status": true,
+    "stock": 160,
+    "category": "Hogar",
+    "thumbnails": ["/images/productos/producto17-img1.jpg"]
+  },
+  {
+    "id": 18,
+    "title": "Producto 18",
+    "description": "Descripción del Producto 18",
+    "price": 124.99,
+    "status": true,
+    "stock": 180,
+    "category": "Ropa",
+    "thumbnails": [
+      "/images/productos/producto18-img1.jpg",
+      "/images/productos/producto18-img2.jpg"
+    ]
+  },
+  {
+    "id": 19,
+    "title": "Producto 19",
+    "description": "Descripción del Producto 19",
+    "price": 134.99,
+    "status": true,
+    "stock": 200,
+    "category": "Electrodomésticos",
+    "thumbnails": ["/images/productos/producto19-img1.jpg"]
+  },
+  {
+    "id": 20,
+    "title": "Producto 20",
+    "description": "Descripción del Producto 20",
+    "price": 144.99,
+    "status": true,
+    "stock": 220,
+    "category": "Juguetes",
+    "thumbnails": [
+      "/images/productos/producto20-img1.jpg",
+      "/images/productos/producto20-img2.jpg"
+    ]
+  },
+  {
+    "id": 21,
+    "title": "Producto 21",
+    "description": "Descripción del Producto 21",
+    "price": 154.99,
+    "status": true,
+    "stock": 240,
+    "category": "Electrónicos",
+    "thumbnails": ["/images/productos/producto21-img1.jpg"]
+  },
+  {
+    "id": 22,
+    "title": "Producto 22",
+    "description": "Descripción del Producto 22",
+    "price": 164.99,
+    "status": true,
+    "stock": 260,
+    "category": "Hogar",
+    "thumbnails": [
+      "/images/productos/producto22-img1.jpg",
+      "/images/productos/producto22-img2.jpg"
+    ]
+  },
+  {
+    "id": 23,
+    "title": "Producto 23",
+    "description": "Descripción del Producto 23",
+    "price": 174.99,
+    "status": true,
+    "stock": 280,
+    "category": "Ropa",
+    "thumbnails": ["/images/productos/producto23-img1.jpg"]
+  },
+  {
+    "id": 24,
+    "title": "Producto 24",
+    "description": "Descripción del Producto 24",
+    "price": 184.99,
+    "status": true,
+    "stock": 300,
+    "category": "Electrodomésticos",
+    "thumbnails": [
+      "/images/productos/producto24-img1.jpg",
+      "/images/productos/producto24-img2.jpg"
+    ]
+  },
+  {
+    "id": 25,
+    "title": "Producto 25",
+    "description": "Descripción del Producto 25",
+    "price": 194.99,
+    "status": true,
+    "stock": 320,
+    "category": "Juguetes",
+    "thumbnails": ["/images/productos/producto25-img1.jpg"]
+  },
+  {
+    "id": 26,
+    "title": "Producto 26",
+    "description": "Descripción del Producto 26",
+    "price": 204.99,
+    "status": true,
+    "stock": 340,
+    "category": "Electrónicos",
+    "thumbnails": [
+      "/images/productos/producto26-img1.jpg",
+      "/images/productos/producto26-img2.jpg"
+    ]
+  },
+  {
+    "id": 27,
+    "title": "Producto 27",
+    "description": "Descripción del Producto 27",
+    "price": 214.99,
+    "status": true,
+    "stock": 360,
+    "category": "Hogar",
+    "thumbnails": ["/images/productos/producto27-img1.jpg"]
+  },
+  {
+    "id": 28,
+    "title": "Producto 28",
+    "description": "Descripción del Producto 28",
+    "price": 224.99,
+    "status": true,
+    "stock": 380,
+    "category": "Ropa",
+    "thumbnails": [
+      "/images/productos/producto28-img1.jpg",
+      "/images/productos/producto28-img2.jpg"
+    ]
+  },
+  {
+    "id": 29,
+    "title": "Producto 29",
+    "description": "Descripción del Producto 29",
+    "price": 234.99,
+    "status": true,
+    "stock": 400,
+    "category": "Electrodomésticos",
+    "thumbnails": ["/images/productos/producto29-img1.jpg"]
+  },
+  {
+    "id": 30,
+    "title": "Producto 30",
+    "description": "Descripción del Producto 30",
+    "price": 244.99,
+    "status": true,
+    "stock": 420,
+    "category": "Juguetes",
+    "thumbnails": [
+      "/images/productos/producto30-img1.jpg",
+      "/images/productos/producto30-img2.jpg"
+    ]
+  }
+]

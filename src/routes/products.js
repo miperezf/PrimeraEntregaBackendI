@@ -1,21 +1,30 @@
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
-const { products } = require("../data/products");
+const path = require("path");
 
-const productsDB = products;
+const productsPath = path.join(__dirname, "..", "data", "products.json");
+
+const productsData = JSON.parse(fs.readFileSync(productsPath, "utf-8"));
 
 // GET
 
 router.get("/products", (req, res) => {
-  res.json(products);
+  let limit = req.query.limit;
+  let productsToSend = productsData;
+
+  if (limit && !isNaN(limit)) {
+    productsToSend = productsData.slice(0, parseInt(limit));
+  }
+
+  res.json(productsToSend);
 });
 
-//GET BY ID
+// GET BY ID
 
 router.get("/products/:id", (req, res) => {
   const productId = parseInt(req.params.id);
-  const product = products.find((product) => product.id === productId);
+  const product = productsData.find((product) => product.id === productId);
 
   if (product) {
     res.json(product);
@@ -24,61 +33,108 @@ router.get("/products/:id", (req, res) => {
   }
 });
 
-// POST
+// // POST
 
 router.post("/products", (req, res) => {
-  const { nombre, id, precio, imagen, descripcion } = req.body;
+  const { id, title, description, price, status, stock, category, thumbails } =
+    req.body;
 
-  if (typeof id !== "number") {
-    return res
-      .status(400)
-      .json({ message: "El campo 'id' debe ser un número" });
+  if (!title || !price || !status || !description) {
+    return res.status(400).json({ message: "Error, faltan datos" });
   }
 
-  if (!nombre || !precio || !imagen || !descripcion) {
-    res.status(400).json({ message: "Error faltan datos" });
-  } else {
-    res.json({ message: "Producto agregado exitosamente" });
-  }
-
-  const newProducts = {
-    nombre,
-    id: products.length + 1,
-    precio,
+  const newProduct = {
+    id: productsData.length + 1,
+    title,
+    description,
+    price,
+    status,
+    stock,
+    category,
     imagen,
-    descripcion,
   };
 
-  products.push(newProducts);
+  productsData.push(newProduct);
+
+  const jsonData = JSON.stringify(productsData, null, 2);
+
+  fs.writeFile("src/data/products.json", jsonData, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Error al guardar el producto" });
+    }
+    console.log("Producto Agregado");
+
+    res.json({ message: "Producto agregado exitosamente" });
+  });
 });
 
-// PUT ==> Adecuar a los requisitos del producto
+// // PUT ==> Adecuar a los requisitos del producto
 
 router.put("/products/:id", (req, res) => {
   const productId = parseInt(req.params.id);
-  const product = products.find((product) => product.id === productId);
+  const product = productsData.find((product) => product.id === productId);
 
   if (product) {
-    const { nombre, id, precio, imagen, descripcion } = req.body;
+    const {
+      id,
+      title,
+      description,
+      price,
+      status,
+      stock,
+      category,
+      thumbails,
+    } = req.body;
 
-    (product.nombre = nombre),
-      (product.id = id),
-      (product.precio = precio),
-      (product.imagen = imagen),
-      (product.descripcion = descripcion),
-      res.json(product);
+    product.title = title;
+    product.price = price;
+    product.status = status;
+    product.description = description;
+
+    const jsonData = JSON.stringify(productsData, null, 2);
+
+    fs.writeFile("src/data/products.json", jsonData, (err) => {
+      if (err) {
+        console.error(err);
+        return res
+          .status(500)
+          .json({ message: "Error al guardar el producto" });
+      }
+      console.log("Producto modificado");
+
+      res.json({ message: "Producto modificado exitosamente" });
+    });
   } else {
     res.status(404).json({ message: "Producto no encontrado" });
   }
 });
 
-// DELETE
+// // DELETE
 
 router.delete("/products/:pid", (req, res) => {
   const productId = parseInt(req.params.pid);
-  products = products.filter((product) => product.id !== productId);
 
-  res.json({ message: "Producto eliminado correctamente" });
+  const updatedProducts = productsData.filter(
+    (product) => product.id !== productId
+  );
+
+  if (updatedProducts.length < productsData.length) {
+    const jsonData = JSON.stringify(updatedProducts, null, 2);
+    fs.writeFile(productsPath, jsonData, (err) => {
+      if (err) {
+        console.error(err);
+        return res
+          .status(500)
+          .json({ message: "Error al guardar los datos actualizados" });
+      }
+      console.log("Producto eliminado correctamente");
+
+      res.json({ message: "Producto eliminado correctamente" });
+    });
+  } else {
+    res.status(404).json({ message: "Producto no encontrado" });
+  }
 });
 
 module.exports = router;

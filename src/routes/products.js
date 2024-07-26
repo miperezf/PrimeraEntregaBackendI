@@ -4,12 +4,10 @@ const fs = require("fs");
 const path = require("path");
 
 const productsPath = path.join(__dirname, "..", "data", "products.json");
-
-const productsData = JSON.parse(fs.readFileSync(productsPath, "utf-8"));
+let productsData = JSON.parse(fs.readFileSync(productsPath, "utf-8"));
 
 // GET
-
-router.get("/products", (req, res) => {
+router.get("/", (req, res) => {
   let limit = req.query.limit;
   let productsToSend = productsData;
 
@@ -21,8 +19,7 @@ router.get("/products", (req, res) => {
 });
 
 // GET BY ID
-
-router.get("/products/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   const productId = parseInt(req.params.id);
   const product = productsData.find((product) => product.id === productId);
 
@@ -33,10 +30,9 @@ router.get("/products/:id", (req, res) => {
   }
 });
 
-// // POST
-
-router.post("/products", (req, res) => {
-  const { id, title, description, price, status, stock, category, thumbails } =
+// POST
+router.post("/", (req, res) => {
+  const { title, description, price, status, stock, category, thumbails } =
     req.body;
 
   if (!title || !price || !status || !description) {
@@ -51,50 +47,47 @@ router.post("/products", (req, res) => {
     status,
     stock,
     category,
-    imagen,
+    thumbails,
   };
 
   productsData.push(newProduct);
 
   const jsonData = JSON.stringify(productsData, null, 2);
-
-  fs.writeFile("src/data/products.json", jsonData, (err) => {
+  fs.writeFile(productsPath, jsonData, (err) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ message: "Error al guardar el producto" });
     }
-    console.log("Producto Agregado");
+    console.log("Producto agregado");
+
+    // Emitir evento de nuevo producto
+    const { getIo } = require("../socket");
+    const io = getIo();
+    io.emit("products", productsData);
 
     res.json({ message: "Producto agregado exitosamente" });
   });
 });
 
-// // PUT ==> Adecuar a los requisitos del producto
-
-router.put("/products/:id", (req, res) => {
+// PUT
+router.put("/:id", (req, res) => {
   const productId = parseInt(req.params.id);
   const product = productsData.find((product) => product.id === productId);
 
   if (product) {
-    const {
-      id,
-      title,
-      description,
-      price,
-      status,
-      stock,
-      category,
-      thumbails,
-    } = req.body;
+    const { title, description, price, status, stock, category, thumbails } =
+      req.body;
 
     product.title = title;
+    product.description = description;
     product.price = price;
     product.status = status;
-    product.description = description;
+    product.stock = stock;
+    product.category = category;
+    product.thumbails = thumbails;
 
     const jsonData = JSON.stringify(productsData, null, 2);
-
-    fs.writeFile("src/data/products.json", jsonData, (err) => {
+    fs.writeFile(productsPath, jsonData, (err) => {
       if (err) {
         console.error(err);
         return res
@@ -103,6 +96,11 @@ router.put("/products/:id", (req, res) => {
       }
       console.log("Producto modificado");
 
+      // Emitir evento de producto modificado
+      const { getIo } = require("../socket");
+      const io = getIo();
+      io.emit("products", productsData);
+
       res.json({ message: "Producto modificado exitosamente" });
     });
   } else {
@@ -110,17 +108,16 @@ router.put("/products/:id", (req, res) => {
   }
 });
 
-// // DELETE
-
-router.delete("/products/:pid", (req, res) => {
-  const productId = parseInt(req.params.pid);
-
+// DELETE
+router.delete("/:id", (req, res) => {
+  const productId = parseInt(req.params.id);
   const updatedProducts = productsData.filter(
     (product) => product.id !== productId
   );
 
   if (updatedProducts.length < productsData.length) {
-    const jsonData = JSON.stringify(updatedProducts, null, 2);
+    productsData = updatedProducts;
+    const jsonData = JSON.stringify(productsData, null, 2);
     fs.writeFile(productsPath, jsonData, (err) => {
       if (err) {
         console.error(err);
@@ -129,6 +126,11 @@ router.delete("/products/:pid", (req, res) => {
           .json({ message: "Error al guardar los datos actualizados" });
       }
       console.log("Producto eliminado correctamente");
+
+      // Emitir evento de producto eliminado
+      const { getIo } = require("../socket");
+      const io = getIo();
+      io.emit("products", productsData);
 
       res.json({ message: "Producto eliminado correctamente" });
     });

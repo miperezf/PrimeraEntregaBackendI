@@ -1,139 +1,145 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
-const path = require("path");
+const Product = require("../models/Product");
 
-const productsPath = path.join(__dirname, "..", "data", "products.json");
+// GET all products
+router.get("/", async (req, res) => {
+  try {
+    let limit = parseInt(req.query.limit) || 0;
+    let products = await Product.find({});
 
-const productsData = JSON.parse(fs.readFileSync(productsPath, "utf-8"));
-
-// GET
-
-router.get("/products", (req, res) => {
-  let limit = req.query.limit;
-  let productsToSend = productsData;
-
-  if (limit && !isNaN(limit)) {
-    productsToSend = productsData.slice(0, parseInt(limit));
-  }
-
-  res.json(productsToSend);
-});
-
-// GET BY ID
-
-router.get("/products/:id", (req, res) => {
-  const productId = parseInt(req.params.id);
-  const product = productsData.find((product) => product.id === productId);
-
-  if (product) {
-    res.json(product);
-  } else {
-    res.status(404).json({ message: "Producto no encontrado" });
-  }
-});
-
-// // POST
-
-router.post("/products", (req, res) => {
-  const { id, title, description, price, status, stock, category, thumbails } =
-    req.body;
-
-  if (!title || !price || !status || !description) {
-    return res.status(400).json({ message: "Error, faltan datos" });
-  }
-
-  const newProduct = {
-    id: productsData.length + 1,
-    title,
-    description,
-    price,
-    status,
-    stock,
-    category,
-    imagen,
-  };
-
-  productsData.push(newProduct);
-
-  const jsonData = JSON.stringify(productsData, null, 2);
-
-  fs.writeFile("src/data/products.json", jsonData, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Error al guardar el producto" });
+    if (limit > 0) {
+      products = products.slice(0, limit);
     }
-    console.log("Producto Agregado");
 
-    res.json({ message: "Producto agregado exitosamente" });
-  });
+    // Renderiza la plantilla "products" y pasa los datos de productos
+    res.render("products", { title: "Lista de Productos", products });
+  } catch (error) {
+    console.error("Error al obtener productos:", error);
+    res.status(500).json({ message: "Error al obtener los productos" });
+  }
 });
 
-// // PUT ==> Adecuar a los requisitos del producto
+// GET product by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
 
-router.put("/products/:id", (req, res) => {
-  const productId = parseInt(req.params.id);
-  const product = productsData.find((product) => product.id === productId);
+    // Verificar si el ID es una cadena hexadecimal válida de 24 caracteres
+    if (!/^[0-9a-fA-F]{24}$/.test(productId)) {
+      return res.status(400).json({ message: "ID de producto no válido" });
+    }
 
-  if (product) {
-    const {
-      id,
+    const product = await Product.findById(productId);
+
+    if (product) {
+      // Renderiza una plantilla específica para mostrar el producto
+      res.render("productDetail", { title: "Detalle del Producto", product });
+    } else {
+      res.status(404).json({ message: "Producto no encontrado" });
+    }
+  } catch (error) {
+    console.error("Error al obtener el producto:", error);
+    res.status(500).json({ message: "Error al obtener el producto" });
+  }
+});
+
+router.get("/", async (req, res) => {
+  const { limit = 10, page = 1, sort = "asc", query = "" } = req.query;
+  const sortOrder = sort === "desc" ? -1 : 1;
+
+  try {
+    const filter = query ? { category: query } : {};
+    const products = await Product.find(filter)
+      .sort({ price: sortOrder })
+      .limit(parseInt(limit))
+      .skip((parseInt(page) - 1) * parseInt(limit));
+    const totalProducts = await Product.countDocuments(filter);
+    const totalPages = Math.ceil(totalProducts / limit);
+    const prevPage = page > 1 ? page - 1 : null;
+    const nextPage = page < totalPages ? page + 1 : null;
+
+    res.json({
+      status: "success",
+      payload: products,
+      totalPages,
+      prevPage,
+      nextPage,
+      page,
+      hasPrevPage: prevPage !== null,
+      hasNextPage: nextPage !== null,
+      prevLink: prevPage
+        ? `/products?limit=${limit}&page=${prevPage}&sort=${sort}&query=${query}`
+        : null,
+      nextLink: nextPage
+        ? `/products?limit=${limit}&page=${nextPage}&sort=${sort}&query=${query}`
+        : null,
+    });
+  } catch (error) {
+    console.error("Error al obtener productos:", error);
+    res
+      .status(500)
+      .json({ status: "error", message: "Error al obtener productos" });
+  }
+});
+
+// POST new product
+router.post("/", async (req, res) => {
+  try {
+    const { title, description, price, status, stock, category, thumbnails } =
+      req.body;
+    const newProduct = new Product({
       title,
       description,
       price,
       status,
       stock,
       category,
-      thumbails,
-    } = req.body;
-
-    product.title = title;
-    product.price = price;
-    product.status = status;
-    product.description = description;
-
-    const jsonData = JSON.stringify(productsData, null, 2);
-
-    fs.writeFile("src/data/products.json", jsonData, (err) => {
-      if (err) {
-        console.error(err);
-        return res
-          .status(500)
-          .json({ message: "Error al guardar el producto" });
-      }
-      console.log("Producto modificado");
-
-      res.json({ message: "Producto modificado exitosamente" });
+      thumbnails,
     });
-  } else {
-    res.status(404).json({ message: "Producto no encontrado" });
+    await newProduct.save();
+    res.status(201).json(newProduct);
+  } catch (error) {
+    console.error("Error al agregar el producto:", error);
+    res.status(500).json({ message: "Error al agregar el producto" });
   }
 });
 
-// // DELETE
+// PUT update product
+router.put("/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productId,
+      req.body,
+      { new: true }
+    );
 
-router.delete("/products/:pid", (req, res) => {
-  const productId = parseInt(req.params.pid);
+    if (updatedProduct) {
+      res.json(updatedProduct);
+    } else {
+      res.status(404).json({ message: "Producto no encontrado" });
+    }
+  } catch (error) {
+    console.error("Error al actualizar el producto:", error);
+    res.status(500).json({ message: "Error al actualizar el producto" });
+  }
+});
 
-  const updatedProducts = productsData.filter(
-    (product) => product.id !== productId
-  );
+// DELETE product
+router.delete("/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const deletedProduct = await Product.findByIdAndDelete(productId);
 
-  if (updatedProducts.length < productsData.length) {
-    const jsonData = JSON.stringify(updatedProducts, null, 2);
-    fs.writeFile(productsPath, jsonData, (err) => {
-      if (err) {
-        console.error(err);
-        return res
-          .status(500)
-          .json({ message: "Error al guardar los datos actualizados" });
-      }
-      console.log("Producto eliminado correctamente");
-
+    if (deletedProduct) {
       res.json({ message: "Producto eliminado correctamente" });
-    });
-  } else {
-    res.status(404).json({ message: "Producto no encontrado" });
+    } else {
+      res.status(404).json({ message: "Producto no encontrado" });
+    }
+  } catch (error) {
+    console.error("Error al eliminar el producto:", error);
+    res.status(500).json({ message: "Error al eliminar el producto" });
   }
 });
 

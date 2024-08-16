@@ -2,10 +2,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Productos</title>
+    <title>{{title}}</title>
   </head>
   <body>
-    <h1>Lista de Productos</h1>
+    <h1>{{title}}</h1>
     <ul>
       {{#each products}}
         <li>
@@ -14,8 +14,20 @@
           <p>Price: ${{price}}</p>
           <p>Category: {{category}}</p>
           <p>Stock: {{stock}}</p>
+          <a href="/products/{{_id}}">Ver detalles</a>
+          <button data-product-id="{{_id}}" class="add-to-cart">Agregar al
+            carrito</button>
         </li>
       {{/each}}
     </ul>
+    <div>
+      {{#if hasPrevPage}}
+        <a href="{{prevLink}}">Página Anterior</a>
+      {{/if}}
+      {{#if hasNextPage}}
+        <a href="{{nextLink}}">Página Siguiente</a>
+      {{/if}}
+    </div>
+    <script src="/js/addToCart.js"></script>
   </body>
 </html>

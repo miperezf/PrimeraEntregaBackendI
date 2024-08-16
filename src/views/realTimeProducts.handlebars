@@ -2,45 +2,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Real Time Products</title>
+    <title>{{title}}</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/realtimeProducts.js" defer></script>
   </head>
   <body>
-    <h1>Real Time Products</h1>
+    <h1>{{title}}</h1>
 
     <h2>Agregar Producto</h2>
     <form id="add-product-form">
-      <input
-        type="text"
-        id="product-title"
-        placeholder="Título del producto"
-        required
-      />
-      <input
-        type="number"
-        id="product-price"
-        placeholder="Precio del producto"
-        step="0.01"
-        required
-      />
-      <input
-        type="text"
-        id="product-category"
-        placeholder="Categoría del producto"
-      />
-      <input
-        type="number"
-        id="product-stock"
-        placeholder="Stock del producto"
-        step="1"
-      />
-      <button type="submit">Agregar Producto</button>
+      <form id="add-product-form">
+        <input
+          type="text"
+          id="product-title"
+          placeholder="Título del producto"
+          required
+        />
+        <input
+          type="number"
+          id="product-price"
+          placeholder="Precio del producto"
+          step="0.01"
+          required
+        />
+        <input
+          type="text"
+          id="product-description"
+          placeholder="Descripción del producto"
+          required
+        />
+        <input
+          type="text"
+          id="product-category"
+          placeholder="Categoría del producto"
+          required
+        />
+        <input
+          type="number"
+          id="product-stock"
+          placeholder="Stock del producto"
+          required
+        />
+        <input
+          type="text"
+          id="product-status"
+          placeholder="Estado del producto"
+          required
+        />
+        <button type="submit">Agregar Producto</button>
+      </form>
+
     </form>
 
-    <h2>Lista de Productos</h2>
-    <ul id="product-list">
-      <!-- Los productos se actualizarán aquí -->
+    <h2>Productos</h2>
+    <ul id="products-list">
+      {{#each products}}
+        <li>
+          <h3>{{title}}</h3>
+          <p>{{description}}</p>
+          <p>Price: ${{price}}</p>
+          <p>Category: {{category}}</p>
+          <p>Stock: {{stock}}</p>
+        </li>
+      {{/each}}
     </ul>
   </body>
 </html>

@@ -1,6 +1,5 @@
 [
   {
-    "id": 10,
     "title": "Producto 10",
     "description": "Descripción del Producto 10",
     "price": 44.99,
@@ -13,19 +12,15 @@
     ]
   },
   {
-    "id": 11,
     "title": "Producto 11",
     "description": "Descripción del Producto 11",
     "price": 54.99,
     "status": true,
     "stock": 40,
     "category": "Electrónicos",
-    "thumbnails": [
-      "/images/productos/producto11-img1.jpg"
-    ]
+    "thumbnails": ["/images/productos/producto11-img1.jpg"]
   },
   {
-    "id": 12,
     "title": "Producto 12",
     "description": "Descripción del Producto 12",
     "price": 64.99,
@@ -38,19 +33,15 @@
     ]
   },
   {
-    "id": 13,
     "title": "Producto 13",
     "description": "Descripción del Producto 13",
     "price": 74.99,
     "status": true,
     "stock": 80,
     "category": "Ropa",
-    "thumbnails": [
-      "/images/productos/producto13-img1.jpg"
-    ]
+    "thumbnails": ["/images/productos/producto13-img1.jpg"]
   },
   {
-    "id": 14,
     "title": "Producto 14",
     "description": "Descripción del Producto 14",
     "price": 84.99,
@@ -63,19 +54,15 @@
     ]
   },
   {
-    "id": 15,
     "title": "Producto 15",
     "description": "Descripción del Producto 15",
     "price": 94.99,
     "status": true,
     "stock": 120,
     "category": "Juguetes",
-    "thumbnails": [
-      "/images/productos/producto15-img1.jpg"
-    ]
+    "thumbnails": ["/images/productos/producto15-img1.jpg"]
   },
   {
-    "id": 16,
     "title": "Producto 16",
     "description": "Descripción del Producto 16",
     "price": 104.99,
@@ -88,19 +75,15 @@
     ]
   },
   {
-    "id": 23,
     "title": "Producto 23",
     "description": "Descripción del Producto 23",
     "price": 174.99,
     "status": true,
     "stock": 280,
     "category": "Ropa",
-    "thumbnails": [
-      "/images/productos/producto23-img1.jpg"
-    ]
+    "thumbnails": ["/images/productos/producto23-img1.jpg"]
   },
   {
-    "id": 24,
     "title": "Producto 24",
     "description": "Descripción del Producto 24",
     "price": 184.99,
@@ -113,19 +96,15 @@
     ]
   },
   {
-    "id": 25,
     "title": "Producto 25",
     "description": "Descripción del Producto 25",
     "price": 194.99,
     "status": true,
     "stock": 320,
     "category": "Juguetes",
-    "thumbnails": [
-      "/images/productos/producto25-img1.jpg"
-    ]
+    "thumbnails": ["/images/productos/producto25-img1.jpg"]
   },
   {
-    "id": 26,
     "title": "Producto 26",
     "description": "Descripción del Producto 26",
     "price": 204.99,
@@ -138,7 +117,6 @@
     ]
   },
   {
-    "id": 28,
     "title": "Producto 28",
     "description": "Descripción del Producto 28",
     "price": 224.99,
@@ -151,19 +129,15 @@
     ]
   },
   {
-    "id": 29,
     "title": "Producto 29",
     "description": "Descripción del Producto 29",
     "price": 234.99,
     "status": true,
     "stock": 400,
     "category": "Electrodomésticos",
-    "thumbnails": [
-      "/images/productos/producto29-img1.jpg"
-    ]
+    "thumbnails": ["/images/productos/producto29-img1.jpg"]
   },
   {
-    "id": 30,
     "title": "Producto 30",
     "description": "Descripción del Producto 30",
     "price": 244.99,
@@ -179,7 +153,6 @@
     "title": "Producto 31",
     "price": 1000,
     "category": "Ropa",
-    "stock": 12,
-    "id": 15
+    "stock": 12
   }
 ]
